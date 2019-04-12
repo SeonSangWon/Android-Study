@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".P199Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LEFT"
+            android:layout_gravity="left" />
+
+        <Button
+            android:id="@+id/button11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CENTER"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/button12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RIGHT"
+            android:layout_gravity="right"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="#ffff0000"
+            android:textSize="32dp"
+            android:text="left" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="#ffff0000"
+            android:textSize="32dp"
+            android:text="right" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="138dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="center"
+            android:textColor="#ffff0000"
+            android:textSize="32dp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="p.199: gravity 속성으로 텍스트 뷰 안의 글자를 왼쪽, 오른쪽, 아래쪽 화면의 중간에 표시되도록 한 경우"
+            android:background="#aa00aaff"
+            android:textAlignment="center"
+            android:textColor="#F8E0F1"
+            android:textSize="28dp"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
