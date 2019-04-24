@@ -1,0 +1,188 @@
+1. 작업이 끝난 후 UI 변경이 필요 없는 경우
+
+new Thread(new Runnable() {
+	@override
+	public void run(){
+		
+	}
+}).start.();
+
+> Thread 클래스를 상속 받는 하위 스레드 클래스 생성
+   하위 스레드 내에 run()을 오버라이드 하며, run()은 Thread가 실행되면 수행되는 곳이다.
+   Thread 객체를 생성해주고 start()메소드로 Thread의 run()메소드를 실행시켜준다.
+
+public class ThreadTest extends Activity{
+	protected void onCreate(){
+		super.onCreat();
+	
+		ExampleThread thread = new ExampleThread();	//객체 생성
+		thread.start();	//스레드 시작
+	}
+
+	private class ExampleThread extends Thread{
+		public ExampleThread(){
+			//초기화 작업 
+		}
+		public void run(){
+			//스레드 동작
+		}
+}
+
+
+1. Thread동작 예제 - Timer
+
+private class ExampleThread extends Thread{
+	public Example(){
+		//초기화 작업
+	}
+	public void run(){
+		int second = 0;
+		while(ture){
+			try{
+				second++;
+				Thread.sleep(1000);
+			}catch(exception e){  }
+		}
+		Log.i("경과된 시간 : " + Integer.toString(second));
+	}
+}
+
+
+2. Thread 사용 예제 - Join() 사용
+
+public class MainActivity extends AppcompatActivity{
+	ExampleThread thread;
+
+	protected void onCreate(){
+		super.onCreate();
+
+		Log.i("메인 스레드 시작" , " ");
+		for(int i=0; i <=3; i++){
+			thread = new ExampleThread();  //객체 생성
+			thread.start();  //스레드 시작
+		}
+
+		try{
+			thread.join();
+		}cathch() {  }
+		
+		Log.i("메인 스레드 종료", " ");
+	}
+
+	private class ExampleThread extends Thread{
+		private int threadNum = 0;
+		public ExampleThread(int threadNum){
+			//초기화 작업
+			this.threadNum = threadNum;
+		}
+		public void run(){
+			Log.i("시작된 스레드", Integer.toString(threadNum));
+
+			try{
+				Thread.sleep(1000);
+			}catch() {   }
+			Log.i("종료된 스레드" , Integer.toString(threadNum));
+		}
+	
+
+Handler는 Message 와 Runnable 객체를 처리한다. Runnable 메시지(Thread(Runnable runnable) 생성자로
+만들어 Runnable 인터페이스를 구현한 개체를 생성하여 상속 받은 스레드는 추상 메서드 run()을 만드시 구현)
+는 run() 메서드를 호출해 처리하고, 
+Message는 handlerMessage() 메서드를 이용해 처리한다.
+
+1. 메시지는 다른 스레드에 속한 Message Queue에서 전달된다.
+2. Message Queue에 메시지를 넣을 땐 handler.sendMessage()를 이용한다.
+3. Looper는 Message Queue에서 loop()를 통해 반복적으로 처리할 메시지를 Handler에 전달한다.
+4. Handler는 handleMessage()를 통해 메시지를 처리한다.
+
+※Handler는 의존적이다. 따라서 혼자서는 아무 일도 못하기 때문에 Message Queue가 있어야하고,
+그 메시지를 전달해 줄 Looper가 없으면 Handler의 handleMessage()는 사용할 수가 없다.
+즉, Handler는 Thread와 Looper, MessageQueue가 필요하다.
+
+Looper의 역할
+Looper는 하나의 스레드만을 담당할 수 있고 하나의 스레드도 오직 하나의 Looper만을 가질 수 있다.
+looper는 MessageQueue가 비어있는 동안은 아무 행동도 ㅇ나하고 메시지가 들어오면 해당 메시지를 꺼내
+적절한 Handler로 전달한다.
+
+Looper 생성법
+
+	Thread thread1 = new Thread(new Runnable(){
+		@override
+		public void run(){
+			Looper.prepare(); //MessageQueue를 준비
+			handler = new Handler();
+			Looper.loop(); //무한 루프 실행
+		}
+	});
+	thread1.start();
+
+단독 사용가능한 Handler
+기본 생성자를 통해 Handler를 생성하면, 생성되는 Handler는 해당 Handler를 호출한 스레드의
+MessageQueue와 Looper에 자동 연결된다.
+
+public class MainActivity extends AppcompatActivity{
+	Handler handler = null;	//변수 생성
+
+	protected void onCreate(){
+		super.onCreate();
+		handler = new Handler(); //객체 생성
+
+		Thread t = new Thread(new Runnable(){
+			@override
+			public void run(){
+				//UI작업수행 X
+				handler.post(new Runnable(){
+					@override
+					public void run(){
+						//UI 작업 수행
+					}	
+				});
+			}
+		});
+		t.start();
+	}	
+}
+
+>> 이런 식으로 메인 스레드에서 Handler를 생성하면 해당 Handler는 호출한 스레드의 
+MessageQueue 와 Looper에 자동 연결되므로 다른 스레드에서 Handler를 통해 메시지를 전달하면
+메인 스레드(UI 스레드)에서 UI작업이 가능하다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
